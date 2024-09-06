@@ -4,58 +4,13 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
     const [err, setErr] = useState(false)
-    // const handleSubmit = async (e) => {
-    //     const displayName = e.target[0].value;
-    //     const email = e.target[1].value;
-    //     const password = e.target[2].value;
-    //     const file = e.target[3].files[0];
+    const navigate = useNavigate();
 
-
-    //     try {
-    //         const res = await createUserWithEmailAndPassword(auth, email, password);
-
-
-
-
-
-    //         const storageRef = ref(storage, displayName);
-
-    //         const uploadTask = uploadBytesResumable(storageRef, file);
-
-
-    //         uploadTask.on(
-    //             (error) => {
-    //                 setErr(true)
-    //             },
-    //             () => {
-
-    //                 getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-    //                     await updateProfile(res.user, {
-    //                         displayName,
-    //                         photoURL: downloadURL,
-    //                     });
-    //                     await setDoc(doc(db, "users", res.user.uid), {
-    //                         uid: res.user.uid,
-    //                         displayName,
-    //                         email,
-    //                         photoURL: downloadURL
-    //                     })
-    //                 });
-    //             }
-    //         );
-
-    //     } catch (err) {
-    //         setErr(true)
-    //     }
-
-
-
-
-    // }
 
     const handleSubmit = async (e) => {
         // setLoading(true);
@@ -90,8 +45,8 @@ const Register = () => {
                         });
 
                         //create empty user chats on firestore
-                        // await setDoc(doc(db, "userChats", res.user.uid), {});
-                        // navigate("/");
+                        await setDoc(doc(db, "userChats", res.user.uid), {});
+                        navigate("/");
                     } catch (err) {
                         console.log(err);
                         setErr(true);
@@ -121,7 +76,7 @@ const Register = () => {
                     <button>Sign up</button>
                     {err && <span>Something went wrong</span>}
                 </form>
-                <p>Do you have an account? Login</p>
+                <p>Do you have an account?<Link to='/login'>Login</Link> </p>
             </div>
         </div>
     )
