@@ -21,7 +21,7 @@ function App() {
 
 
     <Routes>
-      <Route path="/">
+      <Route path="/chatapp">
         <Route index element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
